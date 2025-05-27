@@ -1,29 +1,17 @@
-# Use official Python image
-FROM python:3.11-slim
+# Use Python base image
+FROM python:3.11
 
-# Environment settings
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-
-# Set working directory
+# Set workdir inside container
 WORKDIR /app/leaderboard_backend
 
-# System dependencies
-RUN apt-get update && apt-get install -y build-essential libpq-dev
+# Copy all project files into container
+COPY . /app/leaderboard_backend/
 
-# Install Python dependencies
-COPY requirements.txt .
-RUN pip install --upgrade pip
+# Install dependencies (adjust as needed)
 RUN pip install -r requirements.txt
-
-# Copy project files
-COPY . .
-
-# Collect static files
-RUN python leaderboard_backend/manage.py collectstatic --noinput
 
 # Expose port
 EXPOSE 8000
 
-# Start the app using gunicorn
-CMD ["gunicorn", "leaderboard_backend.leaderboard_backend.wsgi:application", "--bind", "0.0.0.0:8000"]
+# Run Gunicorn with the correct wsgi module path
+CMD ["gunicorn", "leaderboard_backend.wsgi:application", "--bind", "0.0.0.0:8000"]
