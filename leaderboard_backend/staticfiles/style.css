@@ -1,57 +1,163 @@
-body {
-  background: radial-gradient(circle, #111, #000);
+/* Reset margin/padding */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100vh;          /* Full viewport height */
+  overflow: hidden;       /* Disable scrolling */
+  background-color: #111;
   color: #0ff;
-  font-family: 'Courier New', Courier, monospace;
-  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#gameWrapper {
+  width: 450px;
+  height: 700px;
+  background-color: #000;
   padding: 20px;
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 0 0 30px #0ff;
 }
 
 h1 {
-  font-size: 3em;
-  color: #00ffff;
-  text-shadow: 0 0 10px #0ff;
+  margin: 0 0 20px 0;
+  color: #0ff;
 }
 
 #game-container {
-  display: inline-block;
-  background: #111;
-  padding: 15px;
-  border: 2px solid #0ff;
-  box-shadow: 0 0 20px #0ff;
-  border-radius: 10px;
+  position: relative;
+  width: 400px;
+  height: 450px; /* Enough space for canvas + info */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-canvas {
-  background: #000;
+canvas#gameCanvas {
+  border: 3px solid #0ff;
+  background-color: #000;
   display: block;
-  margin: auto;
 }
 
 .info {
   margin-top: 10px;
+  width: 100%;
+  text-align: center;
+  color: #0ff;
+  font-size: 1.2rem;
 }
 
-button {
+.info button {
+  margin-top: 8px;
   background-color: #0ff;
   border: none;
   color: #000;
-  padding: 5px 10px;
-  font-weight: bold;
+  padding: 8px 20px;
+  border-radius: 6px;
   cursor: pointer;
-  border-radius: 5px;
-}
-
-button:hover {
-  background-color: #0cc;
+  font-weight: bold;
+  font-size: 1rem;
 }
 
 .leaderboard {
-  margin-top: 30px;
+  margin-top: 20px;
+  width: 100%;
   color: #0ff;
 }
 
-input {
-  padding: 5px;
-  border-radius: 5px;
+.leaderboard h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+#leaderboardList {
+  list-style: none;
+  padding-left: 0;
+  max-height: 180px;
+  overflow-y: auto;
+  border: 1px solid #0ff;
+  border-radius: 6px;
+  background-color: #111;
+  margin-bottom: 10px;
+}
+
+#leaderboardList li {
+  padding: 6px 10px;
+  border-bottom: 1px solid #0ff;
+}
+
+#scoreForm {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+#scoreForm input[type="text"] {
+  flex-grow: 1;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #0ff;
+  background: #000;
+  color: #0ff;
+  font-size: 1rem;
+}
+
+#scoreForm button {
+  background-color: #0ff;
   border: none;
+  color: #000;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+/* Overlay styles */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  color: #0ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  flex-direction: column;
+  border-radius: 10px;
+}
+
+.overlay-content {
+  text-align: center;
+  background: #111;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 30px #0ff;
+  width: 80%;
+}
+
+.hidden {
+  display: none;
+}
+
+.overlay button {
+  margin-top: 20px;
+  background-color: #0ff;
+  border: none;
+  color: #000;
+  padding: 12px 25px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.2rem;
 }

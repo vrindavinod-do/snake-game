@@ -1,57 +1,210 @@
-body {
-  background: radial-gradient(circle, #111, #000);
+/* Reset and base styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100vh;
+  width: 100vw;
+  background-color: #111;
   color: #0ff;
-  font-family: 'Courier New', Courier, monospace;
-  text-align: center;
-  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Prevent scrolling */
 }
 
-h1 {
-  font-size: 3em;
-  color: #00ffff;
-  text-shadow: 0 0 10px #0ff;
-}
-
-#game-container {
-  display: inline-block;
-  background: #111;
-  padding: 15px;
-  border: 2px solid #0ff;
-  box-shadow: 0 0 20px #0ff;
-  border-radius: 10px;
-}
-
-canvas {
+/* Main container holding game and leaderboard side-by-side */
+#appContainer {
+  display: flex;
+  flex-direction: row;
+  width: 900px;  /* total width */
+  height: 530px; /* total height */
   background: #000;
+  border-radius: 10px;
+  box-shadow: 0 0 40px #0ff;
+  overflow: hidden;
+}
+
+/* Left panel: Game section */
+#gameSection {
+  flex: 1 1 auto;
+  padding: 20px;
+  border-right: 2px solid #0ff;
+
+  display: flex;
+  flex-direction: column;
+
+  /* REMOVE vertical centering */
+  align-items: stretch;  /* stretch to fill horizontally */
+  justify-content: flex-start; /* stack from top */
+
+  position: relative;
+  height: 100%;  /* ensure it fills parent's height */
+}
+
+
+/* Game container */
+#game-container {
+  background-color: #000;
+  border: 2px solid #0ff;
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Canvas styling */
+#gameCanvas {
+  background-color: #000;
+  border: 2px solid #0ff;
+  border-radius: 6px;
   display: block;
-  margin: auto;
 }
 
+/* Info below canvas */
 .info {
-  margin-top: 10px;
+  margin-top: 15px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  color: #0ff;
+  font-weight: bold;
+  font-size: 1.1rem;
 }
 
-button {
+/* Replay button styling */
+.info button {
   background-color: #0ff;
   border: none;
+  border-radius: 5px;
+  padding: 6px 12px;
   color: #000;
-  padding: 5px 10px;
   font-weight: bold;
   cursor: pointer;
-  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
-
-button:hover {
+.info button:hover {
   background-color: #0cc;
 }
 
-.leaderboard {
-  margin-top: 30px;
+/* Leaderboard panel on the right */
+#leaderboardSection {
+  width: 320px;
+  background-color: #050505;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
   color: #0ff;
+  overflow-y: auto;
+  border-radius: 0 10px 10px 0;
 }
 
-input {
-  padding: 5px;
+/* Leaderboard title */
+#leaderboardSection h2 {
+  margin-bottom: 12px;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+/* Leaderboard list */
+#leaderboardList {
+  list-style: none;
+  flex-grow: 1;
+  overflow-y: auto;
+  max-height: 350px;
+  padding-left: 10px;
+  margin-bottom: 20px;
+}
+
+/* Each leaderboard entry */
+#leaderboardList li {
+  padding: 6px 0;
+  border-bottom: 1px solid #0ff2;
+  font-size: 1rem;
+}
+
+/* Score submission form */
+#scoreForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Player name input */
+#playerName {
+  padding: 8px;
   border-radius: 5px;
+  border: 1px solid #0ff;
+  background-color: #111;
+  color: #0ff;
+  font-size: 1rem;
+}
+
+/* Submit button */
+#scoreForm button {
+  background-color: #0ff;
   border: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-weight: bold;
+  color: #000;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+#scoreForm button:hover {
+  background-color: #0cc;
+}
+
+/* Game Over Overlay */
+#gameOverScreen.overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 255, 255, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  z-index: 10;
+  flex-direction: column;
+  color: #000;
+  font-weight: bold;
+  font-size: 1.8rem;
+}
+
+#gameOverScreen.hidden {
+  display: none;
+}
+
+#gameOverScreen .overlay-content button {
+  margin-top: 20px;
+  background-color: #000;
+  color: #0ff;
+  border: 2px solid #0ff;
+  padding: 8px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+#gameOverScreen .overlay-content button:hover {
+  background-color: #0cc;
+  color: #000;
+}
+
+/* Scrollbar style for leaderboard */
+#leaderboardList::-webkit-scrollbar {
+  width: 6px;
+}
+#leaderboardList::-webkit-scrollbar-thumb {
+  background: #0ff;
+  border-radius: 3px;
+}
+#leaderboardList::-webkit-scrollbar-track {
+  background: transparent;
 }
