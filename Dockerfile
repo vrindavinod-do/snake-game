@@ -8,6 +8,9 @@ COPY . /app/
 
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Set environment variable for Django settings
+ENV DJANGO_SETTINGS_MODULE=leaderboard_backend.settings
+
 EXPOSE 8000
 
 # Gunicorn command to import wsgi from leaderboard_backend package (which is now /app/leaderboard_backend)
