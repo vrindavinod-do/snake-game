@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SnakeX - Techno Snake Game</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>🐍 SnakeX</h1>
+  <div id="game-container">
+    <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <div class="info">
+      <p>🎯 Score: <span id="score">0</span></p>
+      <p>🥇 High Score: <span id="highScore">0</span></p>
+      <button onclick="startGame()">🔁 Replay</button>
+    </div>
+  </div>
+
+  <div class="leaderboard">
+    <h2>🌐 Leaderboard</h2>
+    <ul id="leaderboardList"></ul>
+    <form id="scoreForm">
+      <input type="text" id="playerName" placeholder="Your name" required />
+      <button type="submit">Submit Score</button>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
