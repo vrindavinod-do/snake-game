@@ -9,7 +9,7 @@ COPY . /app/
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Set environment variable for Django settings
-ENV DJANGO_SETTINGS_MODULE=leaderboard_backend.settings
+ENV DJANGO_SETTINGS_MODULE=leaderboard_backend.leaderboard_backend.settings
 
 EXPOSE 8000
 
