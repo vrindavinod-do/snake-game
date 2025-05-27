@@ -1,17 +1,14 @@
-# Use official Python base image
 FROM python:3.11
 
-# Set working directory inside the container
-WORKDIR /app/leaderboard_backend
+# Set the workdir to /app (project root inside container)
+WORKDIR /app
 
-# Copy the entire current directory contents into the container at /app/leaderboard_backend
-COPY . /app/leaderboard_backend/
+# Copy everything from current directory (local project root) into /app
+COPY . /app/
 
-# Install dependencies from requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose port 8000 for the container
 EXPOSE 8000
 
-# Command to run the Django app using gunicorn, specifying correct wsgi module path
+# Gunicorn command to import wsgi from leaderboard_backend package (which is now /app/leaderboard_backend)
 CMD ["gunicorn", "leaderboard_backend.wsgi:application", "--bind", "0.0.0.0:8000"]
