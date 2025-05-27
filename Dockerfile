@@ -26,4 +26,4 @@ RUN python leaderboard_backend/manage.py collectstatic --noinput
 EXPOSE 8000
 
 # Start the app using gunicorn
-CMD ["gunicorn", "leaderboard_backend.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["gunicorn", "leaderboard_backend.leaderboard_backend.wsgi:application", "--bind", "0.0.0.0:8000"]
