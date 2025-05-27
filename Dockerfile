@@ -1,14 +1,14 @@
 # Use official Python image
 FROM python:3.11-slim
 
-# Prevents Python from writing .pyc files and buffers
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+# Environment settings
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
-# Set working directory inside container
+# Set working directory
 WORKDIR /app
 
-# Install system dependencies
+# System dependencies
 RUN apt-get update && apt-get install -y build-essential libpq-dev
 
 # Install Python dependencies
@@ -19,14 +19,11 @@ RUN pip install -r requirements.txt
 # Copy project files
 COPY . .
 
-# Change into Django directory
-WORKDIR /app/leaderboard_backend
+# Collect static files
+RUN python leaderboard_backend/manage.py collectstatic --noinput
 
-# Collect static files (optional if DEBUG=False)
-RUN python manage.py collectstatic --noinput
-
-# Expose the port for gunicorn
+# Expose port
 EXPOSE 8000
 
-# Start Gunicorn server
+# Start the app using gunicorn
 CMD ["gunicorn", "leaderboard_backend.wsgi:application", "--bind", "0.0.0.0:8000"]
