@@ -105,7 +105,7 @@ document.getElementById('scoreForm').addEventListener('submit', e => {
   const name = document.getElementById('playerName').value;
 
   // Change API URL to your backend endpoint
-  fetch('http://127.0.0.1:8000/api/submit/', {
+  fetch('api/submit/', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ name, score })
@@ -116,19 +116,32 @@ document.getElementById('scoreForm').addEventListener('submit', e => {
 });
 
 function fetchLeaderboard() {
-  // Change API URL to your backend endpoint
-  fetch('http://127.0.0.1:8000/api/leaderboard/')
+  fetch('api/leaderboard/')
     .then(res => res.json())
     .then(data => {
       const list = document.getElementById('leaderboardList');
       list.innerHTML = '';
+
+      let maxScoreFromLeaderboard = 0;
+
       data.forEach(entry => {
         const li = document.createElement('li');
         li.textContent = `${entry.name} - ${entry.score}`;
         list.appendChild(li);
+
+        if (entry.score > maxScoreFromLeaderboard) {
+          maxScoreFromLeaderboard = entry.score;
+        }
       });
+
+      // Update highScore if leaderboard has a higher score
+      if (maxScoreFromLeaderboard > highScore) {
+        highScore = maxScoreFromLeaderboard;
+        localStorage.setItem('highScore', highScore);
+        document.getElementById('highScore').innerText = highScore;
+      }
     });
 }
 
 fetchLeaderboard();
-startGame();
+//startGame();
