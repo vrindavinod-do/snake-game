@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-54ff!6@r9x--zm1uj=e$=l*4xmicyy86ytz+-^cg5y!ev4s&_e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['snakegame-app-7yp36.ondigitalocean.app', 'localhost', '127.0.0.1']
+
 
 
 # Application definition
