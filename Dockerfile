@@ -15,7 +15,8 @@ ENV DJANGO_SETTINGS_MODULE=leaderboard_backend.settings
 EXPOSE 8000
 
 # Collect static files
-RUN python manage.py collectstatic --noinput
+RUN python leaderboard_backend/manage.py collectstatic --noinput
+
 
 # Gunicorn command to import wsgi from leaderboard_backend package (which is now /app/leaderboard_backend)
 CMD ["gunicorn", "leaderboard_backend.wsgi:application", "--bind", "0.0.0.0:8000"]
